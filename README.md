@@ -1,6 +1,6 @@
 <br>
 <p align="center">
-    <img src="images/logo.png" width="30%" alt="logo">
+    <img src="https://raw.githubusercontent.com/awwwesome-cz/whats-new-kit/master/images/logo.png" width="30%" alt="logo">
 </p>
 
 <h1 align="center">
@@ -28,7 +28,21 @@
    </a>
 </p>
 
-<img align="right" width="315" src="images/example.png" alt="Example">
+<img align="right" width="315" src="https://raw.githubusercontent.com/awwwesome-cz/whats-new-kit/master/images/example.png" alt="Example">
+
+```typescript
+export class HomePage implements OnInit  {
+
+  constructor(
+    protected updateWNKService: UpdateWNKService,
+  ) {
+  }
+
+  ngOnInit() {
+    this.updateWNKService.whatsNew();
+  }
+}
+```
 
 ## Features
 
@@ -40,17 +54,20 @@
 - [x] Support any platform: iOS, macOS, iPadOS, Android, Web & Electron 📱 🖥
 - [x] Adjustable content 🔧
 
-See complete documentation in [Project page](projects/whats-new-kit).
+[See complete documentation](projects/whats-new-kit).
 
 ## Installation
 
-1. Download package from NPM using `npm i ...`
-2.
+1. Install package from NPM using `npm i @awwwesome-cz/whats-new-kit`.
+2. Create [Custom Service](projects/whats-new-kit#automatic-presentation) for automatic presentation.
+3. Call `this.updateWNKService.whatsNew()` on your page.
+
+[See complete documentation](projects/whats-new-kit).
 
 ## Example
 
 <p align="center">
-    <img width="95%" src="images/example-app.png" alt="Example Applications">
+    <img width="95%" src="https://raw.githubusercontent.com/awwwesome-cz/whats-new-kit/master/images/example-app.png" alt="Example Applications">
 </p>
 
 ## Development info

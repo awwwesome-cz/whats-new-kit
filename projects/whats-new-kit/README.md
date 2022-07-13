@@ -1,6 +1,6 @@
 <br>
 <p align="center">
-    <img src="../../images/logo.png" width="30%" alt="logo">
+    <img src="https://raw.githubusercontent.com/awwwesome-cz/whats-new-kit/master/images/logo.png" width="30%" alt="logo">
 </p>
 
 <h1 align="center">
@@ -17,47 +17,28 @@
     Original Swift Package <a href="https://github.com/SvenTiigi/WhatsNewKit/">SvenTiigi/WhatsNewKit</a>
 </p>
 
-<img align="right" width="315" src="../../images/example.png" alt="Example">
+<p align="center">
+   <a href="projects/whats-new-kit">
+      <img src="https://img.shields.io/badge/Documentation-100%25-green" alt="Documentation">
+   </a>
+   <img src="https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20iPadOS%20%7C%20Android%20%7C%20Web%20%7C%20Electron-brightgreen" alt="Platform">
+   <a href="https://awwwesome.cz">
+      <img src="https://img.shields.io/badge/Web-awwwesome.cz-blueviolet" alt="Web">
+   </a>
+</p>
+
+<img align="right" width="315" src="https://raw.githubusercontent.com/awwwesome-cz/whats-new-kit/master/images/example.png" alt="Example">
 
 ```typescript
-export class UpdateWNKService {
+export class HomePage implements OnInit  {
 
-  async whatsNew() {
-    const version = '1.0';
-
-    if (await WhatsNewKitComponent.canShow({
-      appVersion: version,
-      skipPatchVersion: true
-    })) {
-      await this._initUpdateInfoSheet();
-    }
+  constructor(
+    protected updateWNKService: UpdateWNKService,
+  ) {
   }
 
-  private async _initUpdateInfoSheet() {
-    const modal = await this.modalController.create({
-      component: WhatsNewKitComponent,
-      componentProps: {
-        buttons: {
-          continue: {
-            title: 'Continue'
-          }
-        },
-        title: 'WhatsNewKit',
-        features: [
-          {
-            icon: {
-              name: 'star',
-              color: 'warning'
-            },
-            title: 'Showcase your new App Features',
-            text: 'Present your new app features just like a native app from Apple',
-          }
-        ],
-      },
-      backdropDismiss: false,
-      presentingElement: document.getElementById('tabs-outlet')
-    });
-    return await modal.present();
+  ngOnInit() {
+    this.updateWNKService.whatsNew();
   }
 }
 ```
@@ -74,13 +55,14 @@ export class UpdateWNKService {
 
 ## Installation
 
-1. Download package from NPM using `npm i ...`
-2.
+1. Install package from NPM using `npm i @awwwesome-cz/whats-new-kit`.
+2. Create [Custom Service](#automatic-presentation) for automatic presentation.
+3. Call `this.updateWNKService.whatsNew()` on your page.
 
 ## Example
 
 <p align="center">
-    <img width="95%" src="../../images/example-app.png" alt="Example Applications">
+    <img width="95%" src="https://raw.githubusercontent.com/awwwesome-cz/whats-new-kit/master/images/example-app.png" alt="Example Applications">
 </p>
 
 ## Usage

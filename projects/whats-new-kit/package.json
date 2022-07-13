@@ -1,6 +1,6 @@
 {
   "name": "@awwwesome-cz/whats-new-kit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A NPM Package to easily showcase your new app features in your Ionic Angular App.",
   "keywords": [
     "typescript",
@@ -12,10 +12,10 @@
     "capacitor"
   ],
   "peerDependencies": {
-    "@angular/common": "^14.0.0",
-    "@angular/core": "^14.0.0",
-    "@ionic/angular": "^6.1.13",
-    "@capacitor/storage": "^1.2.5"
+    "@angular/common": "^12.0.0",
+    "@angular/core": "^12.0.0",
+    "@ionic/angular": "^6.1.0",
+    "@capacitor/storage": "^1.2.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
