@@ -13,7 +13,7 @@ jobs:
         with:
           node-version: '14.x'
           registry-url: 'https://registry.npmjs.org'
-      - name: Install dependencies in whats-new-kit
+      - name: Install dependencies in workspace & whats-new-kit
         run: npm install && cd projects/whats-new-kit && npm install
       - name: Build 🔧
         run: npm run build
