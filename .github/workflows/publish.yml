@@ -18,6 +18,6 @@ jobs:
       - name: Build 🔧
         run: npm run build
       - name: Publish package on NPM 📦
-        run: npm publish --access public
+        run: cd dist/whats-new-kit && npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
