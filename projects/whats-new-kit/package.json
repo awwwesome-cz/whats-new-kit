@@ -1,6 +1,16 @@
 {
-  "name": "whats-new-kit",
-  "version": "0.0.1",
+  "name": "@awwwesome-cz/whats-new-kit",
+  "version": "1.0.0",
+  "description": "A NPM Package to easily showcase your new app features in your Ionic Angular App.",
+  "keywords": [
+    "typescript",
+    "package",
+    "ionic",
+    "angular",
+    "whats new kit",
+    "whatsnewkit",
+    "capacitor"
+  ],
   "peerDependencies": {
     "@angular/common": "^14.0.0",
     "@angular/core": "^14.0.0",
@@ -13,5 +23,9 @@
   "devDependencies": {
     "@capacitor/storage": "^1.2.5",
     "@ionic/angular": "^6.1.13"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/awwwesome-cz/whats-new-kit.git"
   }
 }
