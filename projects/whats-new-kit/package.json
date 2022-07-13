@@ -1,0 +1,17 @@
+{
+  "name": "whats-new-kit",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^14.0.0",
+    "@angular/core": "^14.0.0",
+    "@ionic/angular": "^6.1.13",
+    "@capacitor/storage": "^1.2.5"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@capacitor/storage": "^1.2.5",
+    "@ionic/angular": "^6.1.13"
+  }
+}
