@@ -1,0 +1,41 @@
+.aw3sm-wnk {
+
+    // TODO: readme override
+    --wnk-bottom-margin: var(--ion-safe-area-bottom);
+
+    // use for custom color from ionic
+    .aw3sm-wnk-color {
+        color: var(--ion-color-base)
+    }
+
+    .large-text {
+        font-size: 35px;
+    }
+
+
+    .os-like-icon {
+        width: 120px;
+        height: 120px;
+    }
+
+    .large-icon {
+        font-size: 45px;
+    }
+
+    .margin-vertical {
+        margin-top: 45px;
+        margin-bottom: 45px;
+    }
+
+    /*
+     * Fix Dark mode background
+     */
+    ion-item {
+        --ion-item-background: var(--ion-item-background);
+    }
+
+    .margin-bottom{
+        margin-bottom: var(--wnk-bottom-margin);
+    }
+
+}

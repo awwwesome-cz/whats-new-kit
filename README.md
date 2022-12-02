@@ -4,11 +4,13 @@
 </p>
 
 <h1 align="center">
-    WhatsNewKit for Ionic (Angular)
+    WhatsNewKit for Ionic
 </h1>
 
+![Built With Stencil](https://img.shields.io/badge/-Built%20With%20Stencil-16161d.svg?logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI%2BCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI%2BCgkuc3Qwe2ZpbGw6I0ZGRkZGRjt9Cjwvc3R5bGU%2BCjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik00MjQuNywzNzMuOWMwLDM3LjYtNTUuMSw2OC42LTkyLjcsNjguNkgxODAuNGMtMzcuOSwwLTkyLjctMzAuNy05Mi43LTY4LjZ2LTMuNmgzMzYuOVYzNzMuOXoiLz4KPHBhdGggY2xhc3M9InN0MCIgZD0iTTQyNC43LDI5Mi4xSDE4MC40Yy0zNy42LDAtOTIuNy0zMS05Mi43LTY4LjZ2LTMuNkgzMzJjMzcuNiwwLDkyLjcsMzEsOTIuNyw2OC42VjI5Mi4xeiIvPgo8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNDI0LjcsMTQxLjdIODcuN3YtMy42YzAtMzcuNiw1NC44LTY4LjYsOTIuNy02OC42SDMzMmMzNy45LDAsOTIuNywzMC43LDkyLjcsNjguNlYxNDEuN3oiLz4KPC9zdmc%2BCg%3D%3D&colorA=16161d&style=flat-square)
+
 <p align="center">
-    A NPM Package to easily showcase your new app features in your Ionic Angular App.
+    A NPM Package to easily showcase your new app features in your Ionic App.
     <br/>
     It's designed from the ground up to be fully customized to your needs.
 </p>
@@ -50,11 +52,10 @@ export class HomePage implements OnInit  {
 - [x] Automatic & Manual presentation mode ✅
 - [x] Dark mode ready ☑️
 - [x] Use Ionic Theming Colors 🎨
-- [x] Support for Ionic - Angular and Capacitor 🧑‍🎨
+- [x] Use Stencil for reusable components
+- [x] Support for Ionic - Any frontend leading framework and Capacitor 🧑‍🎨
 - [x] Support any platform: iOS, macOS, iPadOS, Android, Web & Electron 📱 🖥
 - [x] Adjustable content 🔧
-
-[See complete documentation](projects/whats-new-kit).
 
 ## Installation
 
@@ -69,61 +70,3 @@ export class HomePage implements OnInit  {
 <p align="center">
     <img width="95%" src="https://raw.githubusercontent.com/awwwesome-cz/whats-new-kit/master/images/example-app.png" alt="Example Applications">
 </p>
-
-## Development info
-
-1. Developing library in [projects](projects) like `whats-new-kit`.
-2. Run `ng build` or `ng build --watch` (for live reload) for build dev distribution of lib.
-3. Go to `cd dist/whats-new-kit` or different lib.
-4. Run `npm link` for link dev distribution to global node_modules folder.
-
-### Testing in real application
-
-1. Create blank Ionic application `ionic start dist-test-app blank --type=angular --capacitor`
-2. Go to ionic blank app
-3. Run `npm link whats-new-kit` for link dev dist distribution from global node_modules folder.
-4. Open `angular.json` in test app and add `"preserveSymlinks": true`
-
-```json
-{
-  // ...
-  "projects": {
-    "app": {
-      // ...
-      "architect": {
-        "build": {
-          // ...
-          "options": {
-            "preserveSymlinks": true
-            // <--- add this
-            // ...
-          }
-        }
-      }
-    }
-  }
-```
-
-## Licence
-
-WhatsNewKit for Ionic (Angular)
-
-Copyright (c) 2022 Ing. Jakub Josef Forman forman@awwwesome.cz
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.

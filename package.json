@@ -1,39 +1,40 @@
 {
-  "name": "aw3sm-whats-new-kit-workspace",
-  "version": "0.0.0",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+  "name": "aw3sm-whats-new-kit",
+  "version": "2.0.0",
+  "description": "Component for easily showcase your new app features in your Ionic App. Build with Stencil.",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/whats-new-kit/whats-new-kit.esm.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/awwwesome-cz/whats-new-kit.git"
   },
-  "private": true,
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "stencil build --docs",
+    "start": "stencil build --dev --watch --serve",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watchAll",
+    "generate": "stencil generate"
+  },
   "dependencies": {
-    "@angular/animations": "^12.0.0",
-    "@angular/common": "^12.0.0",
-    "@angular/compiler": "^12.0.0",
-    "@angular/core": "^12.0.0",
-    "@angular/forms": "^12.0.0",
-    "@angular/platform-browser": "^12.0.0",
-    "@angular/platform-browser-dynamic": "^12.0.0",
-    "@angular/router": "^12.0.0",
-    "rxjs": "~7.5.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.11.4"
+    "@stencil/core": "^2.13.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^12.0.5",
-    "@angular/cli": "~12.0.5",
-    "@angular/compiler-cli": "^12.0.0",
-    "@types/jasmine": "~4.0.0",
-    "jasmine-core": "~4.1.0",
-    "karma": "~6.3.0",
-    "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.0.0",
-    "karma-jasmine-html-reporter": "~1.7.0",
-    "ng-packagr": "^12.0.0",
-    "typescript": "~4.3.5"
-  }
+    "@ionic/core": "^6.3.8",
+    "@stencil/sass": "^2.0.0",
+    "@types/jest": "^27.0.3",
+    "jest": "^27.4.5",
+    "jest-cli": "^27.4.5",
+    "puppeteer": "^10.0.0"
+  },
+  "license": "MIT"
 }
