@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {ModalController} from "@ionic/angular";
-import {Storage} from "@capacitor/storage";
+import {Preferences} from "@capacitor/preferences";
 
 export type WhatsNewKitFeature = {
   icon: {
@@ -67,7 +67,7 @@ export class WhatsNewKitComponent implements OnInit {
    */
   static async canShow(config: ShowConfig): Promise<boolean> {
     WhatsNewKitComponent.appVersion = config.appVersion;
-    const {value} = await Storage.get({
+    const {value} = await Preferences.get({
       key: 'wnk_app_saved_version',
     });
     if (value) {
@@ -108,7 +108,7 @@ export class WhatsNewKitComponent implements OnInit {
     this.buttons.continue.handler?.call('continue-handler');
 
     // check version and save it if needed
-    await Storage.set({
+    await Preferences.set({
       key: 'wnk_app_saved_version',
       value: WhatsNewKitComponent.appVersion ?? '0',
     })

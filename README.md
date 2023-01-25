@@ -81,7 +81,7 @@ export class HomePage implements OnInit  {
 
 1. Create blank Ionic application `ionic start dist-test-app blank --type=angular --capacitor`
 2. Go to ionic blank app
-3. Run `npm link whats-new-kit` for link dev dist distribution from global node_modules folder.
+3. Run `npm link  @awwwesome-cz/whats-new-kit` for link dev dist distribution from global node_modules folder.
 4. Open `angular.json` in test app and add `"preserveSymlinks": true`
 
 ```json
