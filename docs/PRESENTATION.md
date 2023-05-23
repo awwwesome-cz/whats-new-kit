@@ -1,90 +1,76 @@
 ## Types of presentation
 
 - [Manual Presentation](#manual-presentation)
-- [Automatic Presentation](#automatic-presentation)
+- [Half Automatic Presentation](#half-automatic-presentation)
+- [Full Automatic Presentation](#full-automatic-presentation) - Note: not completed yet
+
 ## Usage
 
 ### Manual Presentation
 
-1. Define features (WNK recommend 4-5 max for small screen not good for UX, user need to scroll).
-2. Adding `ModalController` service.
-3. Show `Ionic modal (modalController)` with `WhatsNewKitComponent`.
+1. Setup `whatsNewKitConfig` on any app startup event in lifecycle.
+2. Define `WhatsNew` (with features recommend 4-5 max for small screen not good for UX, user need to scroll).
+3. Show `Ionic modal (modalController)` with `WhatsNewKitComponent` or use manual
+   method `await whatsNewKitController.show({})`.
 
-In `modalController.create()` you need to add componentProps and set all what you want to show on WNK page.
+#### Manual - with custom Modal Controller
 
 ```typescript
-export class ExamplePage {
-    /**
-     * Define your features
-     *
-     * @protected
-     */
-    protected features: WhatsNewKitFeature[] = [
-        {
-            icon: {
-                name: 'star',
-                color: 'warning'
-            },
-            title: 'Showcase your new App Features',
-            text: 'Present your new app features just like a native app from <span class="aw3sm-wnk-color ion-color-danger">Apple</span>',
-        },
-        {
-            icon: {
-                name: 'color-wand',
-                color: 'primary'
-            },
-            title: 'Automatic Presentation',
-            text: 'Simple declare a WhatsNew for actual version and present it automatically by ' +
-                'using any ionic <strong>modalController.create() method</strong>.',
-        },
-        {
-            icon: {
-                name: 'cog',
-                color: 'dark'
-            },
-            title: 'Configuration',
-            text: 'Easily adjust colors, strings and the layout of the presented WhatNewKit Modal page to your needs.',
-        },
-        {
-            icon: {
-                name: 'logo-npm',
-                color: 'danger'
-            },
-            title: 'NPM Manager',
-            text: 'WhatsNewKit can by easily integrated vie the Swift Package Manager.',
-        }
-    ];
-
-    constructor(
-        protected modalController: ModalController,
-    ) {
+class AnyPage {
+    async show() {
+        await this.openModal({
+            title: 'WhatsNewKit<br>in <span class="aw3sm-wnk-color ion-color-primary">Multiline</span>',
+            features: [
+                {
+                    icon: {
+                        name: 'star',
+                        color: 'warning',
+                        position: 'left'
+                    },
+                    title: 'Showcase your new App Features',
+                    text: 'Present your new app features just like a native app from <span class="aw3sm-wnk-color ion-color-danger">Apple</span>',
+                },
+                {
+                    icon: {
+                        name: 'color-wand',
+                        color: 'primary'
+                    },
+                    title: 'Automatic Presentation',
+                    text: 'Simple declare a WhatsNew for actual version and present it automatically by ' +
+                        'using any ionic <strong>modalController.create() method</strong>.',
+                }
+            ],
+            footer: {
+                // description: 'Some features are only available in certain countries and regions.',
+                description: {
+                    text: 'Some features are only available in certain countries and regions.',
+                    icon: {
+                        name: 'people-outline',
+                    }
+                },
+                continue: {
+                    title: 'Continue',
+                    color: 'danger',
+                },
+                more: {
+                    title: 'More about this update',
+                    handler: () => {
+                        alert('Get more');
+                    }
+                }
+            }
+        })
     }
 
-    /**
-     * Show WhatsNewKit as modal sheet
-     */
-    async showUpdateInfoSheet() {
-        const modal = await this.modalController.create({
-            component: WhatsNewKitComponent,
+    public async openModal(config: WhatsNew) {
+        // use ionic modal controller
+        const modal = await modalController.create({
+            component: 'whats-new-kit', // Or in Angular WhatsNewKit
             componentProps: {
-                buttons: {
-                    continue: {
-                        title: 'Continue',
-                        color: 'danger'
-                        // additionally you can add custom handler, default capacitor.storage & canShow() check won't override!
-                        // handler: () => {
-                        //   alert('Get more');
-                        // }
-                    },
-                    /*more: {
-                      title: 'More about this update',
-                      handler: () => {
-                        alert('Get more');
-                      }
-                    }*/
-                },
-                title: 'WhatsNewKit<br>in <span class="aw3sm-wnk-color ion-color-primary">Multiline</span>',
-                features: this.features,
+                // Also you cand declare data there without config method atrribute
+                footer: config.footer,
+                header: config.title,
+                features: config.features,
             },
             backdropDismiss: false, // other Ionic modal settings
             // Used for iOS card presenting style (only on iOS), see doc: https://ionicframework.com/docs/api/modal#card-modal
@@ -95,76 +81,135 @@ export class ExamplePage {
 }
 ```
 
-#### Get version of your app
+#### Manual - with `whatsNewKitController.show()`
 
-You can use our `WhatsNewKitController` with several methods to get data.
+```typescript
+class AnyPage {
+    async show() {
+        await whatsNewKitController.show({
+            title: 'WhatsNewKit<br>in <span class="aw3sm-wnk-color ion-color-primary">Multiline</span>',
+            features: [
+                {
+                    icon: {
+                        name: 'star',
+                        color: 'warning',
+                        position: 'left'
+                    },
+                    title: 'Showcase your new App Features',
+                    text: 'Present your new app features just like a native app from <span class="aw3sm-wnk-color ion-color-danger">Apple</span>',
+                },
+                {
+                    icon: {
+                        name: 'color-wand',
+                        color: 'primary'
+                    },
+                    title: 'Automatic Presentation',
+                    text: 'Simple declare a WhatsNew for actual version and present it automatically by ' +
+                        'using any ionic <strong>modalController.create() method</strong>.',
+                }
+            ],
+            footer: {
+                // description: 'Some features are only available in certain countries and regions.',
+                description: {
+                    text: 'Some features are only available in certain countries and regions.',
+                    icon: {
+                        name: 'people-outline',
+                    }
+                },
+                continue: {
+                    title: 'Continue',
+                    color: 'danger',
+                },
+                more: {
+                    title: 'More about this update',
+                    handler: () => {
+                        alert('Get more');
+                    }
+                }
+            }
+        })
+    }
+}
+```
 
-- `canShow(config: ShowConfig): Promise<boolean>` - you can get actual state when you need to show action sheet. `true` means you can show. 
-- `getAppVersion(): Promise<string>` - get actual App version. **⚠️ Not available for web!** 
+### Half-Automatic Presentation
 
-### Automatic Presentation
-
-1. Define features (WNK recommend 4-5 max for small screen not good for UX, user need to scroll).
-2. Adding `WhatsNewKitController` service.
-3. Call `whatsNewKitController.init()` for automatic show. Also, you can customize init config.
+1. Setup global options (versions & skip detection)
+2.
 
 ```typescript
 
-export class ExamplePage {
+class AnyPage {
+
     /**
-     * Define your features
-     *
+     * Register global data before calling autoShow()
      * @protected
      */
-    protected features: WhatsNewKitFeature[] = [
-        {
-            icon: {
-                name: 'star',
-                color: 'warning'
-            },
-            title: 'Showcase your new App Features',
-            text: 'Present your new app features just like a native app from <span class="aw3sm-wnk-color ion-color-danger">Apple</span>',
-        },
-        {
-            icon: {
-                name: 'color-wand',
-                color: 'primary'
-            },
-            title: 'Automatic Presentation',
-            text: 'Simple declare a WhatsNew for actual version and present it automatically by ' +
-                'using any ionic <strong>modalController.create() method</strong>.',
-        },
-        {
-            icon: {
-                name: 'cog',
-                color: 'dark'
-            },
-            title: 'Configuration',
-            text: 'Easily adjust colors, strings and the layout of the presented WhatNewKit Modal page to your needs.',
-        },
-        {
-            icon: {
-                name: 'logo-npm',
-                color: 'danger'
-            },
-            title: 'NPM Manager',
-            text: 'WhatsNewKit can by easily integrated vie the Swift Package Manager.',
-        }
-    ];
+    protected viewWillLoad() {
+        //
+        // Setup global manual
+        //
 
-    constructor(
-        protected whatsNewKitController: WhatsNewKitController,
-    ) {
+        whatsNewKitConfig.version = "1.1.0"; // app version (from capacitor...)
+        whatsNewKitConfig.versionStore = "1.0.0"; // last time saved version (from capacitor...)
+        whatsNewKitConfig.skipPatch = true;
+
+        // ... other code
+
+        // Run auto detection
+        this.autoShow();
     }
 
-    /**
-     * Show WhatsNewKit as modal sheet automaticcaly
-     */
-    async showUpdateInfoSheet() {
-        await whatsNewKitController.init({
-            features: this.features
+    private autoShow = async () => {
+        await whatsNewKitController.whatsNew({
+            title: 'WhatsNewKit<br>in <span class="aw3sm-wnk-color ion-color-primary">Multiline</span>',
+            features: [
+                {
+                    icon: {
+                        name: 'star',
+                        color: 'warning',
+                        position: 'left'
+                    },
+                    title: 'Showcase your new App Features',
+                    text: 'Present your new app features just like a native app from <span class="aw3sm-wnk-color ion-color-danger">Apple</span>',
+                },
+                {
+                    icon: {
+                        name: 'color-wand',
+                        color: 'primary'
+                    },
+                    title: 'Automatic Presentation',
+                    text: 'Simple declare a WhatsNew for actual version and present it automatically by ' +
+                        'using any ionic <strong>modalController.create() method</strong>.',
+                }
+            ],
+            footer: {
+                // description: 'Some features are only available in certain countries and regions.',
+                description: {
+                    text: 'Some features are only available in certain countries and regions.',
+                    icon: {
+                        name: 'people-outline',
+                    }
+                },
+                continue: {
+                    title: 'Continue',
+                    color: 'danger',
+                },
+                more: {
+                    title: 'More about this update',
+                    handler: () => {
+                        alert('Get more');
+                    }
+                }
+            }
         });
     }
 }
 ```
+
+### Full-Automatic Presentation
+
+> Not implemented yet! Waiting for implementing handlers for detect data from storage. Will be
+> like `Half-Automatic Presentation`
+
 

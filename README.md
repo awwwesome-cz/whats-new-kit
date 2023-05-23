@@ -33,40 +33,50 @@
 <img align="right" width="315" src="https://raw.githubusercontent.com/awwwesome-cz/whats-new-kit/master/images/example.png" alt="Example">
 
 ```typescript
-export class HomePage implements OnInit  {
+class AnyPage {
 
-  constructor(
-    protected updateWNKService: UpdateWNKService,
-  ) {
-  }
-
-  ngOnInit() {
-    this.updateWNKService.whatsNew();
-  }
+    ngOnInit() {
+        whatsNewKitController.whatsNew({...});
+    }
 }
 ```
 
 ## Features
 
-- [x] Easily present your new app features 🤩
-- [x] Automatic & Manual presentation mode ✅
+- [x] Easily present your new app features or onboarding 🤩
+- [x] Full-Automatic, Half-Automatic & Manual presentation mode ✅
 - [x] Dark mode ready ☑️
+- [x] Adjustable content 🔧
 - [x] Use Ionic Theming Colors 🎨
 - [x] Use Stencil for reusable components
-- [x] Support for Ionic - Any frontend leading framework and Capacitor 🧑‍🎨
+- [x] Works with any modern JavaScript framework or library 🎉
+- [x] Support for Ionic 🧑‍🎨
 - [x] Support any platform: iOS, macOS, iPadOS, Android, Web & Electron 📱 🖥
-- [x] Adjustable content 🔧
+- [x] Support for `window.localStorage` 💾
+- [x] Capacitor not needed for web 💾
 
-## Installation
+
+## Installation & Setup
 
 1. Install package from NPM using `npm i @awwwesome-cz/whats-new-kit`.
-2. Create [Custom Service](projects/whats-new-kit#automatic-presentation) for automatic presentation.
-3. Call `this.updateWNKService.whatsNew()` on your page.
+2. Setup global data in `whatsNewKitConfig.version = '1.0.0'` and otehrs
+3. Call `await WhatsNewKitController.whatsNew(...)` in Angular or `await whatsNewKitController.whatsNew(...)` in Vue.js,
+   React or others.
 
-[See complete documentation](projects/whats-new-kit).
+[See complete documentation](docs/PRESENTATION.md).
 
 ## Example
 
 <p align="center">
     <img width="95%" src="https://raw.githubusercontent.com/awwwesome-cz/whats-new-kit/master/images/example-app.png" alt="Example Applications">
 </p>
+
+## Planing
+
+| Feature                  | Description                                                                                                                                                 |
+|--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Global Config            | Like [Ionic Config](https://ionicframework.com/docs/developing/config) for custom setup version and more before `await whatsNewKitController.whatsNew(...)` |
+| Load config feature file | Allow to load feature texts from external file.                                                                                                             |
+| Get & Set Version Method | Create global callable async methods for set and get version from any DB                                                                                    |
+| Allow version collection | Add versions collection                                                                                                                                     |
+

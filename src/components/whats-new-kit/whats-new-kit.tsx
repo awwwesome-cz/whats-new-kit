@@ -23,7 +23,7 @@ export interface WhatsNewKitIcon {
     position?: WhatsNewKitPosition
 }
 
-export interface WhatsNewKitFeature {
+export interface WhatsNewFeature {
     /**
      * Feature Icon (Ionic or custom)
      *
@@ -130,9 +130,6 @@ export interface WhatsNewKitFooter {
     shadow: false,
 })
 export class WhatsNewKit {
-
-    static appVersion?: string;
-
     /**
      * Header of modal
      */
@@ -146,7 +143,7 @@ export class WhatsNewKit {
     /**
      * Features
      */
-    @Prop() features: WhatsNewKitFeature[] = [];
+    @Prop() features: WhatsNewFeature[] = [];
 
     /**
      * Dismiss Modal

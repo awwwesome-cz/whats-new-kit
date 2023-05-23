@@ -5,8 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { WhatsNewKitFeature, WhatsNewKitFooter } from "./components/whats-new-kit/whats-new-kit";
-export { WhatsNewKitFeature, WhatsNewKitFooter } from "./components/whats-new-kit/whats-new-kit";
+import { WhatsNewFeature, WhatsNewKitFooter } from "./components/whats-new-kit/whats-new-kit";
+export { WhatsNewFeature, WhatsNewKitFooter } from "./components/whats-new-kit/whats-new-kit";
 export namespace Components {
     interface TestComponent {
     }
@@ -22,7 +22,7 @@ export namespace Components {
         /**
           * Features
          */
-        "features": WhatsNewKitFeature[];
+        "features": WhatsNewFeature[];
         /**
           * Buttons
          */
@@ -62,7 +62,7 @@ declare namespace LocalJSX {
         /**
           * Features
          */
-        "features"?: WhatsNewKitFeature[];
+        "features"?: WhatsNewFeature[];
         /**
           * Buttons
          */

@@ -1,45 +1,59 @@
-import {WhatsNewKit, WhatsNewKitFooter, WhatsNewKitFeature} from "../components/whats-new-kit/whats-new-kit";
-import {modalController} from "@ionic/core";
+import {WhatsNewFeature, WhatsNewKitFooter} from "../components/whats-new-kit/whats-new-kit";
+import {modalController, ModalOptions} from "@ionic/core";
+import {whatsNewKitConfig} from "./config";
 
 
-export type WhatsNewKitShowConfig = {
+export interface WhatsNewKitShowConfig {
     /**
      * Declare APP version
      */
-    appVersion: string,
+    appVersion: string;
+
+    /**
+     * Last stored version
+     */
+    storedVersion: string;
+
     /**
      * Skip patch version 0.0.x
      */
-    skipPatchVersion?: boolean,
+    skipPatchVersion?: boolean;
+
     /**
      * Skip minor version 0.x.x
      */
-    skipMinorVersion?: boolean
+    skipMinorVersion?: boolean;
 }
 
-export interface WhatsNewKitConfig {
+export interface WhatsNew {
+    /**
+     * Actual app version
+     *
+     * Override global config
+     */
+    version?: string;
+
     /**
      * Title of modal
      */
-    title: string,
+    title: string;
 
     /**
      * Features
      */
-    features: WhatsNewKitFeature[],
-
-    /**
-     * Actual app version
-     */
-    appVersion?: string,
+    features: WhatsNewFeature[];
 
     /**
      * Footer with buttons
      */
-    footer: WhatsNewKitFooter,
+    footer: WhatsNewKitFooter;
+}
 
-    presentingElement?: HTMLElement,
-    backdropDismiss?: boolean
+type UnwantedKeys = "component" | "componentProps"
+
+export interface WhatsNewSheetConfig extends Omit<ModalOptions, keyof UnwantedKeys> {
+    presentingElement?: HTMLElement;
+    backdropDismiss?: boolean;
 }
 
 class WhatsNewKitController {
@@ -50,7 +64,7 @@ class WhatsNewKitController {
      *
      * @protected
      */
-    protected features: WhatsNewKitFeature[] = [];
+    protected features: WhatsNewFeature[] = [];
 
     /**
      * Init WNK with modal
@@ -59,20 +73,22 @@ class WhatsNewKitController {
      *
      * If app version is bigger then last used (updated), show modal sheet
      */
-    public async whatsNew(config: WhatsNewKitConfig) {
+    public async whatsNew(whatsNew: WhatsNew, config?: WhatsNewSheetConfig) {
         // set features
-        this.features = config.features;
+        this.features = whatsNew.features;
 
         // get version of app
-        if (!config.appVersion) {
-            config.appVersion = await this.getAppVersion();
+        if (!whatsNew.version) {
+            whatsNew.version = this.getAppVersion();
         }
 
         if (await this.canShow({
-            appVersion: config.appVersion,
-            skipPatchVersion: true
+            appVersion: whatsNew.version,
+            storedVersion: whatsNewKitConfig.versionStore,
+            skipPatchVersion: whatsNewKitConfig.skipPatch,
+            skipMinorVersion: whatsNewKitConfig.skipMinor
         })) {
-            await this._showInfoSheet(config);
+            await this.show(whatsNew, config);
         }
     }
 
@@ -81,19 +97,8 @@ class WhatsNewKitController {
      *
      * @private
      */
-    async getAppVersion(): Promise<string> {
-        // TODO: if use capacitor, get from capacitor
-        /*if (Capacitor.getPlatform() !== 'web') {
-            version = (await App.getInfo()).version;
-        } else {
-            version = '1.0'; // web app version must be added by developer
-        }*/
-        // TODO: get version APP - Ionic.version
-        const version = localStorage.getItem(this.storageKey);
-        if (version) {
-            return Promise.resolve(version);
-        }
-        return Promise.resolve('1.0.0');
+    getAppVersion(): string {
+        return whatsNewKitConfig.version;
     }
 
     /**
@@ -102,22 +107,21 @@ class WhatsNewKitController {
      * @return Promise<boolean>
      */
     async canShow(config: WhatsNewKitShowConfig): Promise<boolean> {
-        WhatsNewKit.appVersion = config.appVersion;
         /* TODO: capacitor storage
         const {value} = await Storage.get({
             key: this.storageKey,
         });*/
-        const value = "0.0.0"; // TODO: default app version is 0.0.0
+        const value = config.storedVersion ?? '0.0.0'; // TODO: default app version is 0.0.0
         if (value) {
             const v1 = value.split('.');
-            const v2 = WhatsNewKit.appVersion.split('.');
+            const v2 = config.appVersion.split('.');
 
             // minor update
             if (config.skipMinorVersion) {
                 if (v1[0] === v2[0]) {
                     return false;
                 } else {
-                    return value < WhatsNewKit.appVersion;
+                    return value < config.appVersion;
                 }
             }
 
@@ -126,14 +130,15 @@ class WhatsNewKitController {
                 if (v1[0] === v2[0] && v1[1] === v2[1]) {
                     return false;
                 } else {
-                    return value < WhatsNewKit.appVersion;
+                    return value < config.appVersion;
                 }
             }
 
             // major update
-            return value < WhatsNewKit.appVersion;
+            return value < config.appVersion;
         } else {
             // new install app
+            console.log("new app");
             return true;
         }
     }
@@ -143,17 +148,15 @@ class WhatsNewKitController {
      *
      * @private
      */
-    private async _showInfoSheet(config: WhatsNewKitConfig) {
+    public async show(whatsNew: WhatsNew, config?: WhatsNewSheetConfig) {
         const modal = await modalController.create({
             component: "whats-new-kit", // WhatsNewKit
             componentProps: {
-                footer: config.footer,
-                header: config.title,
-                features: this.features,
+                footer: whatsNew.footer,
+                header: whatsNew.title,
+                features: whatsNew.features,
             },
-            backdropDismiss: config.backdropDismiss ?? false,
-            // Used for iOS card presenting style (only on iOS), see doc: https://ionicframework.com/docs/api/modal#card-modal
-            presentingElement: config.presentingElement ?? null
+            ...config
         });
         return await modal.present();
     }
