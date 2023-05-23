@@ -5,25 +5,36 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { WhatsNewKitFeature } from "./components/whats-new-kit/whats-new-kit";
+import { WhatsNewKitFeature, WhatsNewKitFooter } from "./components/whats-new-kit/whats-new-kit";
+export { WhatsNewKitFeature, WhatsNewKitFooter } from "./components/whats-new-kit/whats-new-kit";
 export namespace Components {
     interface TestComponent {
     }
     interface WhatsNewKit {
-        "buttons": {
-        more?: {
-            title: string,
-            color?: string,
-            handler?: () => string;
-        };
-        continue: {
-            title: string,
-            color?: string,
-            handler?: () => string;
-        };
-    };
+        /**
+          * Trigger continue button for action  Dismissing modal
+         */
+        "continue": () => Promise<void>;
+        /**
+          * Dismiss Modal
+         */
+        "dismiss": () => Promise<void>;
+        /**
+          * Features
+         */
         "features": WhatsNewKitFeature[];
-        "title": string;
+        /**
+          * Buttons
+         */
+        "footer": WhatsNewKitFooter;
+        /**
+          * Header of modal
+         */
+        "header": string;
+        /**
+          * Trigger more button for action  More button action
+         */
+        "more": () => Promise<void>;
     }
 }
 declare global {
@@ -48,20 +59,18 @@ declare namespace LocalJSX {
     interface TestComponent {
     }
     interface WhatsNewKit {
-        "buttons"?: {
-        more?: {
-            title: string,
-            color?: string,
-            handler?: () => string;
-        };
-        continue: {
-            title: string,
-            color?: string,
-            handler?: () => string;
-        };
-    };
+        /**
+          * Features
+         */
         "features"?: WhatsNewKitFeature[];
-        "title"?: string;
+        /**
+          * Buttons
+         */
+        "footer": WhatsNewKitFooter;
+        /**
+          * Header of modal
+         */
+        "header"?: string;
     }
     interface IntrinsicElements {
         "test-component": TestComponent;

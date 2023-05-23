@@ -2,6 +2,7 @@ import {Config} from '@stencil/core';
 import {sass} from '@stencil/sass';
 
 export const config: Config = {
+    sourceMap: false,
     namespace: 'whats-new-kit',
     globalStyle: 'src/global/global.scss',
     globalScript: 'src/global/global.ts',
@@ -12,6 +13,7 @@ export const config: Config = {
         },
         {
             type: 'dist-custom-elements',
+            generateTypeDeclarations: false,
         },
         {
             type: 'docs-readme',

@@ -11,7 +11,8 @@ export class TestComponent {
         {
             icon: {
                 name: 'star',
-                color: 'warning'
+                color: 'warning',
+                position: 'above'
             },
             title: 'Showcase your new App Features',
             text: 'Present your new app features just like a native app from <span class="aw3sm-wnk-color ion-color-danger">Apple</span>',
@@ -38,8 +39,8 @@ export class TestComponent {
                 name: 'logo-npm',
                 color: 'danger'
             },
-            title: 'NPM Manager',
-            text: 'WhatsNewKit can by easily integrated vie the Swift Package Manager.',
+            title: 'Node Package Manager',
+            text: 'WhatsNewKit can by easily integrated with the Node Package Manager.',
         }
     ];
 
@@ -49,7 +50,26 @@ export class TestComponent {
         //await whatsNewKitController.whatsNew(appVersion);
         await whatsNewKitController.whatsNew({
             title: 'WhatsNewKit<br>in <span class="aw3sm-wnk-color ion-color-primary">Multiline</span>',
-            features: this.features
+            features: this.features,
+            footer: {
+                // description: 'Some features are only available in certain countries and regions.',
+                description: {
+                    text: 'Some features are only available in certain countries and regions.',
+                    icon: {
+                        name: 'people-outline',
+                    }
+                },
+                continue: {
+                    title: 'Continue',
+                    color: 'danger',
+                },
+                more: {
+                    title: 'More about this update',
+                    handler: () => {
+                        alert('Get more');
+                    }
+                }
+            }
         });
     }
 

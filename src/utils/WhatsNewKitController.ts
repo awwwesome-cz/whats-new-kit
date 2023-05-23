@@ -1,8 +1,8 @@
-import {WhatsNewKit, WhatsNewKitFeature} from "../components/whats-new-kit/whats-new-kit";
+import {WhatsNewKit, WhatsNewKitFooter, WhatsNewKitFeature} from "../components/whats-new-kit/whats-new-kit";
 import {modalController} from "@ionic/core";
 
 
-type ShowConfig = {
+export type WhatsNewKitShowConfig = {
     /**
      * Declare APP version
      */
@@ -17,7 +17,7 @@ type ShowConfig = {
     skipMinorVersion?: boolean
 }
 
-interface Config {
+export interface WhatsNewKitConfig {
     /**
      * Title of modal
      */
@@ -33,11 +33,13 @@ interface Config {
      */
     appVersion?: string,
 
-    // TODO: implement
-    style?: {
-        presentingElement?: HTMLElement,
-        backdropDismiss?: boolean
-    }
+    /**
+     * Footer with buttons
+     */
+    footer: WhatsNewKitFooter,
+
+    presentingElement?: HTMLElement,
+    backdropDismiss?: boolean
 }
 
 class WhatsNewKitController {
@@ -48,7 +50,7 @@ class WhatsNewKitController {
      *
      * @protected
      */
-    protected _features: WhatsNewKitFeature[] = [];
+    protected features: WhatsNewKitFeature[] = [];
 
     /**
      * Init WNK with modal
@@ -57,9 +59,9 @@ class WhatsNewKitController {
      *
      * If app version is bigger then last used (updated), show modal sheet
      */
-    public async whatsNew(config: Config) {
+    public async whatsNew(config: WhatsNewKitConfig) {
         // set features
-        this._features = config.features;
+        this.features = config.features;
 
         // get version of app
         if (!config.appVersion) {
@@ -70,12 +72,12 @@ class WhatsNewKitController {
             appVersion: config.appVersion,
             skipPatchVersion: true
         })) {
-            await this._initUpdateInfoSheet(config);
+            await this._showInfoSheet(config);
         }
     }
 
     /**
-     * Get actual vesrion
+     * Get actual version
      *
      * @private
      */
@@ -99,7 +101,7 @@ class WhatsNewKitController {
      *
      * @return Promise<boolean>
      */
-    async canShow(config: ShowConfig): Promise<boolean> {
+    async canShow(config: WhatsNewKitShowConfig): Promise<boolean> {
         WhatsNewKit.appVersion = config.appVersion;
         /* TODO: capacitor storage
         const {value} = await Storage.get({
@@ -141,33 +143,17 @@ class WhatsNewKitController {
      *
      * @private
      */
-    private async _initUpdateInfoSheet(config: Config) {
+    private async _showInfoSheet(config: WhatsNewKitConfig) {
         const modal = await modalController.create({
-            component: WhatsNewKit,
+            component: "whats-new-kit", // WhatsNewKit
             componentProps: {
-                buttons: {
-                    continue: {
-                        title: 'Continue',
-                        color: 'danger'
-                        // additionally you can add custom handler, default capacitor.storage & canShow() check won't override!
-                        // handler: () => {
-                        //   alert('Get more');
-                        // }
-                    },
-                    /*more: {
-                      title: 'More about this update',
-                      handler: () => {
-                        alert('Get more');
-                      }
-                    }*/
-                },
-                title: config.title,
-                // eslint-disable-next-line no-underscore-dangle
-                features: this._features,
+                footer: config.footer,
+                header: config.title,
+                features: this.features,
             },
-            backdropDismiss: config.style?.backdropDismiss ?? false,
+            backdropDismiss: config.backdropDismiss ?? false,
             // Used for iOS card presenting style (only on iOS), see doc: https://ionicframework.com/docs/api/modal#card-modal
-            presentingElement: config.style?.presentingElement ?? document.querySelector('.ion-page ion-router-outlet')
+            presentingElement: config.presentingElement ?? null
         });
         return await modal.present();
     }
